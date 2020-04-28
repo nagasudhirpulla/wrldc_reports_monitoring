@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WRM.App.Data;
+using WRM.App.Security;
 using WRM.Domain.Entities;
 
 namespace WRM.Web.Pages.PspMeasurements
 {
+    [Authorize(Roles = SecurityConstants.AdminRoleString)]
     public class DeleteModel : PageModel
     {
         private readonly WRM.App.Data.AppDbContext _context;

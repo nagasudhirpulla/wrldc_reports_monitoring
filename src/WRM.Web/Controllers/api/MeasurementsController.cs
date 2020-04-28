@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WRM.App.PspMeasurements.Queries.GetAllPspMeasurements;
@@ -12,6 +13,7 @@ namespace WRM.Web.Controllers.api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = Startup.ApiAuthSchemes)]
     public class MeasurementsController : ControllerBase
     {
         private readonly IMediator _mediator;

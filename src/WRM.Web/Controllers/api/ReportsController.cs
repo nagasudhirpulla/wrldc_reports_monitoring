@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WRM.App.ReportsData.Queries.GetMeasurementData;
@@ -12,6 +13,7 @@ namespace WRM.Web.Controllers.api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = Startup.ApiAuthSchemes)]
     public class ReportsController : ControllerBase
     {
         private readonly IMediator _mediator;
