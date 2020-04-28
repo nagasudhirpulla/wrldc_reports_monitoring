@@ -1,0 +1,40 @@
+﻿@page
+@model WRM.Web.Pages.PspMeasurements.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PspMeasurement</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PspMeasurement.Label)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PspMeasurement.Label)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PspMeasurement.QueryString)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PspMeasurement.QueryString)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PspMeasurement.DateType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PspMeasurement.DateType)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="PspMeasurement.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
