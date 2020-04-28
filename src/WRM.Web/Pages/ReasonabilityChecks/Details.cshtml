@@ -1,0 +1,37 @@
+﻿@page
+@model WRM.Web.Pages.ReasonabilityChecks.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ReasonabilityCheck</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReasonabilityCheck.Measurement)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReasonabilityCheck.Measurement.Label)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReasonabilityCheck.MinValue)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReasonabilityCheck.MinValue)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReasonabilityCheck.MaxValue)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReasonabilityCheck.MaxValue)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ReasonabilityCheck.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

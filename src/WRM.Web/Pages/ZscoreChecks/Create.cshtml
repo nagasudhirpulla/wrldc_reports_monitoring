@@ -1,0 +1,48 @@
+﻿@page
+@model WRM.Web.Pages.ZscoreChecks.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ZscoreCheck</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ZscoreCheck.MeasurementId" class="control-label"></label>
+                <select asp-for="ZscoreCheck.MeasurementId" class ="form-control" asp-items="ViewBag.MeasurementId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZscoreCheck.NumDays" class="control-label"></label>
+                <input asp-for="ZscoreCheck.NumDays" class="form-control" />
+                <span asp-validation-for="ZscoreCheck.NumDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZscoreCheck.Threshold" class="control-label"></label>
+                <input asp-for="ZscoreCheck.Threshold" class="form-control" />
+                <span asp-validation-for="ZscoreCheck.Threshold" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZscoreCheck.Influence" class="control-label"></label>
+                <input asp-for="ZscoreCheck.Influence" class="form-control" />
+                <span asp-validation-for="ZscoreCheck.Influence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

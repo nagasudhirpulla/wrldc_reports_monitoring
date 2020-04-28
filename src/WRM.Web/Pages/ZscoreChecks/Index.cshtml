@@ -1,0 +1,54 @@
+﻿@page
+@model WRM.Web.Pages.ZscoreChecks.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ZscoreCheck[0].Measurement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZscoreCheck[0].NumDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZscoreCheck[0].Threshold)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZscoreCheck[0].Influence)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ZscoreCheck) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Measurement.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumDays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Threshold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Influence)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
