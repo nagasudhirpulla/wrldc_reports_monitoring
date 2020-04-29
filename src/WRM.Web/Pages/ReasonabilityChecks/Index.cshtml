@@ -10,7 +10,7 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover" id="checksTable">
     <thead>
         <tr>
             <th>
@@ -22,27 +22,88 @@
             <th>
                 @Html.DisplayNameFor(model => model.ReasonabilityCheck[0].MaxValue)
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.ReasonabilityCheck) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Measurement.Label)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxValue)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.ReasonabilityCheck)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Measurement.Label)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxValue)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReasonabilityCheck[0].Measurement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReasonabilityCheck[0].MinValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReasonabilityCheck[0].MaxValue)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </tfoot>
 </table>
+
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="~/lib/node_modules/datatables/media/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="~/lib/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // ids of data entry tables
+            var tableElIds = ['checksTable'];
+            for (var tableIter = 0; tableIter < tableElIds.length; tableIter++) {
+                // Setup - add a text input to each footer cell
+                $('#' + tableElIds[tableIter] + ' tfoot th').each(function () {
+                    //var title = $(this).text();
+                    $(this).html('<input type="text" placeholder="Search" />');
+                });
+
+                // convert each data entry table to jquery data table
+                var table = $("#" + tableElIds[tableIter]).DataTable({
+                    fixedHeader: true,
+                    "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
+                    "pageLength": 10,
+                    dom: 'Bfrtip',
+                    "order": [[2, "desc"]],
+                    buttons: ['pageLength', 'copy', 'csv', 'excel', 'print']
+                });
+
+                var r = $("#" + tableElIds[tableIter] + ' tfoot tr');
+                r.find('th').each(function () {
+                    $(this).css('padding', '3px');
+                });
+                $("#" + tableElIds[tableIter] + ' thead').append(r);
+
+                // Apply the filter
+                // https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/examples/api/multi_filter.html
+                $("#" + tableElIds[tableIter] + " thead input").on('keyup change', function () {
+                    table
+                        .column($(this).parent().index() + ':visible')
+                        .search(this.value)
+                        .draw();
+                });
+            }
+        });
+    </script>
+}

@@ -10,27 +10,81 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover" id="checksTable">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NonNullCheck[0].Measurement)
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.NonNullCheck) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Measurement.Label)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.NonNullCheck)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Measurement.Label)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NonNullCheck[0].Measurement)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </tfoot>
 </table>
+
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="~/lib/node_modules/datatables/media/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="~/lib/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // ids of data entry tables
+            var tableElIds = ['checksTable'];
+            for (var tableIter = 0; tableIter < tableElIds.length; tableIter++) {
+                // Setup - add a text input to each footer cell
+                $('#' + tableElIds[tableIter] + ' tfoot th').each(function () {
+                    //var title = $(this).text();
+                    $(this).html('<input type="text" placeholder="Search" />');
+                });
+
+                var table = $('#' + tableElIds[tableIter]).DataTable({
+                    fixedColumns: true,
+                    fixedHeader: true,
+                    "lengthMenu": [[10, 20, -1], [10, 20, "All"]],
+                    "pageLength": -1,
+                    dom: 'Bfrtip',
+                    buttons: ['pageLength', 'copy', 'csv', 'excel', 'pdf', 'print']
+                });
+
+                var r = $("#" + tableElIds[tableIter] + ' tfoot tr')
+                r.find('th').each(function () {
+                    $(this).css('padding', '3px');
+                });
+                $("#" + tableElIds[tableIter] + ' thead').append(r);
+
+                // Apply the filter
+                // https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/examples/api/multi_filter.html
+                $("#" + tableElIds[tableIter] + " thead input").on('keyup change', function () {
+                    table
+                        .column($(this).parent().index() + ':visible')
+                        .search(this.value)
+                        .draw();
+                });
+            }
+        });
+    </script>
+}

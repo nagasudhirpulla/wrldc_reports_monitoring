@@ -15,13 +15,20 @@
     <li class="nav-item">
         <a class="nav-link text-dark" asp-page="/PspMeasurements/Index">Measurements</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-page="/NonNullChecks/Index">Non Null Checks</a>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Checks
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" asp-page="/NonNullChecks/Index">Non Null Checks</a>
+            <a class="dropdown-item" asp-page="/ReasonabilityChecks/Index">Reasonability Checks</a>
+            <a class="dropdown-item" asp-page="/ZscoreChecks/Index">Z-Score Checks</a>
+        </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-page="/ReasonabilityChecks/Index">Reasonability Checks</a>
+        <a class="nav-link text-dark" asp-page="/PerformChecks/Index">Perform Checks</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-page="/ZscoreChecks/Index">Z-Score Checks</a>
+        <a class="nav-link text-dark" asp-page="/CheckResults/Index">Results</a>
     </li>
 }

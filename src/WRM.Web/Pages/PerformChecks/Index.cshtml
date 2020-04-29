@@ -1,0 +1,12 @@
+﻿@page
+@model WRM.Web.Pages.PerformChecks.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Perform Checks</h1>
+<form method="post">
+    <input asp-for="DateOfCheck" type="date" />
+    <button class="btn btn-success">Go</button>
+</form>
+

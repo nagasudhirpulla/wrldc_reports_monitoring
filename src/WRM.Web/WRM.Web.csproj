@@ -5,6 +5,17 @@
     <UserSecretsId>aspnet-WRM.Web-266B0302-6B81-4E09-B16D-A7EB3D5438DB</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="wwwroot\lib\node_modules\datatables\media\css\jquery.dataTables.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\node_modules\datatables.net-buttons\js\buttons.html5.min.js" />
+    <None Include="wwwroot\lib\node_modules\datatables.net-buttons\js\buttons.print.min.js" />
+    <None Include="wwwroot\lib\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" />
+    <None Include="wwwroot\lib\node_modules\datatables\media\js\jquery.dataTables.min.js" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />

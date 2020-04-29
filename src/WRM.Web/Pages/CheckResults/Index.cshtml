@@ -1,0 +1,177 @@
+﻿@page
+@model WRM.Web.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Check Results for date - @($"{Model.DateOfCheck.ToString("dd-MMM-yyyy")}")</h1>
+<form method="post">
+    <input asp-for="DateOfCheck" type="date" />
+    <button class="btn btn-success ml-3" type="submit">Show</button>
+</form>
+
+<hr />
+<div class="row">
+    <div class="col col-md-12">
+        <h4>Reasonability Checks results for date @($"{Model.DateOfCheck.ToString("dd-MMM-yyyy")}")</h4>
+        <table class="table table-bordered table-hover" id="reasCheckResultsTable">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Passed?</th>
+                    <th>Violation</th>
+                    <th>Upper Limit</th>
+                    <th>Lower Limit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Results.ReasonabilityCheckResults)
+                {
+                    <tr>
+                        <td>@item.ReasonabilityCheck.Measurement.Label</td>
+
+                        <td>@(item.IsPassed ? "Yes" : "No")</td>
+
+                        <td>@(item.Violation != 0 ? $"{item.Violation}" : "")</td>
+
+                        <td>@item.ReasonabilityCheck.MaxValue</td>
+
+                        <td>@item.ReasonabilityCheck.MinValue</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Label</th>
+                    <th>Passed?</th>
+                    <th>Violation</th>
+                    <th>Upper Limit</th>
+                    <th>Lower Limit</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col col-md-12">
+        <h4>Non-Null Checks results for date @($"{Model.DateOfCheck.ToString("dd-MMM-yyyy")}")</h4>
+        <table class="table table-bordered table-hover" id="nonNullCheckResultsTable">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Passed?</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Results.NonNullCheckResults)
+                {
+                    <tr>
+                        <td>@item.NonNullCheck.Measurement.Label</td>
+
+                        <td>@(item.IsPassed ? "Yes" : "No")</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Label</th>
+                    <th>Passed?</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col col-md-12">
+        <h4>Z-score Checks results for date @($"{Model.DateOfCheck.ToString("dd-MMM-yyyy")}")</h4>
+        <table class="table table-bordered table-hover" id="zScoreCheckResultsTable">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Passed?</th>
+                    <th>Violation</th>
+                    <th>Number of days</th>
+                    <th>Threshold</th>
+                    <th>Influence</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Results.ZscoreCheckResults)
+                {
+                    <tr>
+                        <td>@item.ZscoreCheck.Measurement.Label</td>
+
+                        <td>@(item.IsPassed ? "Yes" : "No")</td>
+
+                        <td>@item.Violation</td>
+
+                        <td>@item.ZscoreCheck.NumDays</td>
+
+                        <td>@item.ZscoreCheck.Threshold</td>
+
+                        <td>@item.ZscoreCheck.Influence</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Label</th>
+                    <th>Passed?</th>
+                    <th>Violation</th>
+                    <th>Number of days</th>
+                    <th>Threshold</th>
+                    <th>Influence</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="~/lib/node_modules/datatables/media/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="~/lib/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/lib/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // ids of data entry tables
+            var tableElIds = ['zScoreCheckResultsTable', 'nonNullCheckResultsTable', 'reasCheckResultsTable'];
+            for (var tableIter = 0; tableIter < tableElIds.length; tableIter++) {
+                // Setup - add a text input to each footer cell
+                $('#' + tableElIds[tableIter] + ' tfoot th').each(function () {
+                    //var title = $(this).text();
+                    $(this).html('<input type="text" placeholder="Search" />');
+                });
+
+                var table = $('#' + tableElIds[tableIter]).DataTable({
+                    fixedColumns: true,
+                    fixedHeader: true,
+                    "lengthMenu": [[10, 20, -1], [10, 20, "All"]],
+                    "pageLength": -1,
+                    dom: 'Bfrtip',
+                    buttons: ['pageLength', 'copy', 'csv', 'excel', 'pdf', 'print']
+                });
+
+                var r = $("#" + tableElIds[tableIter] + ' tfoot tr')
+                r.find('th').each(function () {
+                    $(this).css('padding', '3px');
+                });
+                $("#" + tableElIds[tableIter] + ' thead').append(r);
+
+                // Apply the filter
+                // https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/examples/api/multi_filter.html
+                $("#" + tableElIds[tableIter] + " thead input").on('keyup change', function () {
+                    table
+                        .column($(this).parent().index() + ':visible')
+                        .search(this.value)
+                        .draw();
+                });
+            }
+        });
+    </script>
+}
