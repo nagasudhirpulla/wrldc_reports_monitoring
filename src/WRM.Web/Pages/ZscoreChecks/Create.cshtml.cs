@@ -24,7 +24,7 @@ namespace WRM.Web.Pages.ZscoreChecks
 
         public IActionResult OnGet()
         {
-        ViewData["MeasurementId"] = new SelectList(_context.PspMeasurements, "Id", "Label");
+            ViewData["MeasurementId"] = new SelectList(_context.PspMeasurements, "Id", "Label");
             return Page();
         }
 

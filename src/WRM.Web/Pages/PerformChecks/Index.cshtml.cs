@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WRM.App.NonNullChecks.Commands.PerformAllNonNullChecks;
 using WRM.App.ReasonabilityChecks.Commands.PerformAllReasonabilityChecks;
+using WRM.App.ZscoreChecks.Commands.PerformAllZscoreChecks;
 
 namespace WRM.Web.Pages.PerformChecks
 {
@@ -30,6 +31,7 @@ namespace WRM.Web.Pages.PerformChecks
         {
             _ = await _mediator.Send(new PerformAllReasonabilityChecksCommand() { CheckDate = DateOfCheck.Date });
             _ = await _mediator.Send(new PerformAllNonNullChecksCommand() { CheckDate = DateOfCheck.Date });
+            _ = await _mediator.Send(new PerformAllZscoreChecksCommand() { CheckDate = DateOfCheck.Date });
             return RedirectToPage();
         }
     }

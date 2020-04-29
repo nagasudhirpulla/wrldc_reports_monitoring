@@ -1,0 +1,53 @@
+﻿@page
+@model WRM.Web.Pages.ZscoreChecks.ViewDataModel
+@{
+    ViewData["Title"] = "ViewData";
+}
+
+<h1>Zscores and actual data visualization</h1>
+
+<form method="post">
+    <select asp-for="MeasurementId" class="mr-3" asp-items="ViewBag.MeasurementId"></select>
+    <input asp-for="StartDate" type="date" class="mr-3" />
+    <input asp-for="EndDate" type="date" class="mr-3" />
+    <input asp-for="NumDays" class="mr-3" placeholder="lag days for zscore calculation" />
+    <button class="btn btn-success">View Data</button>
+</form>
+<hr />
+<div id='plotDiv'></div>
+
+@if (Model.ZscoresData.Timestamps.Count > 0)
+{
+
+    @section Scripts{
+        <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+        <script type="text/javascript">
+            var trace1 = {
+                name:'data',
+                x: [@string.Join(",", Model.ZscoresData.Timestamps.Select(t=>$"new Date({t.Subtract(new DateTime(1970,1,1,0,0,0,DateTimeKind.Utc)).TotalMilliseconds})"))],
+                y: [@string.Join(",", Model.ZscoresData.vals.Select(t=>$"{t}"))],
+                type: 'scatter'
+            };
+
+            var trace2 = {
+                name:'zscore',
+                x: [@string.Join(",", Model.ZscoresData.Timestamps.Select(t=>$"new Date({t.Subtract(new DateTime(1970,1,1,0,0,0,DateTimeKind.Utc)).TotalMilliseconds})"))],
+                y: [@string.Join(",", Model.ZscoresData.zScores.Select(t=>$"{t}"))],
+                yaxis: 'y2',
+                type: 'scatter'
+            };
+
+            var data = [trace1, trace2];
+
+            var layout = {
+              yaxis: {title: 'Data'},
+              yaxis2: {
+                title: 'Z-score',
+                overlaying: 'y',
+                side: 'right'
+              }
+            };
+            Plotly.newPlot('plotDiv', data, layout);
+        </script>
+    }
+}
