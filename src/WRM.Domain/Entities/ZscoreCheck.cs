@@ -6,6 +6,5 @@
         public int MeasurementId { get; set; }
         public int NumDays { get; set; }
         public double Threshold { get; set; }
-        public double Influence { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace WRM.App.Data.Configurations
         public void Configure(EntityTypeBuilder<ZscoreCheck> builder)
         {
             builder
-            .HasIndex(m => new { m.MeasurementId, m.Threshold, m.NumDays, m.Influence })
+            .HasIndex(m => new { m.MeasurementId, m.Threshold, m.NumDays })
             .IsUnique();
         }
     }

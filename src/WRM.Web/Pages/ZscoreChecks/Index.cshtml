@@ -22,9 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ZscoreCheck[0].Threshold)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZscoreCheck[0].Influence)
-            </th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -40,9 +37,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Threshold)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Influence)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
@@ -62,9 +56,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ZscoreCheck[0].Threshold)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZscoreCheck[0].Influence)
             </th>
             <th>Actions</th>
         </tr>
