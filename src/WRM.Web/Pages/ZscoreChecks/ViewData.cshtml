@@ -17,14 +17,6 @@
 <div id='plotDiv'></div>
 
 @section Scripts{
-    <link rel="stylesheet" href="~/lib/node_modules/chosen-js/chosen.min.css" />
-    <script src='~/lib/node_modules/chosen-js/chosen.jquery.min.js'></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".chosen-select").chosen();
-        });
-    </script>
-
     @if (Model.ZscoresData.Timestamps.Count > 0)
     {
         <script src='~/lib/node_modules/plotly.js-cartesian-dist/plotly-cartesian.js'></script>

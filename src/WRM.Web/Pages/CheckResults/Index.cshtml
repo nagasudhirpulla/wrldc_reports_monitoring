@@ -40,7 +40,7 @@
                     </tr>
                 }
             </tbody>
-            <tfoot>
+            @*<tfoot>
                 <tr>
                     <th>Label</th>
                     <th>Passed?</th>
@@ -48,7 +48,7 @@
                     <th>Upper Limit</th>
                     <th>Lower Limit</th>
                 </tr>
-            </tfoot>
+            </tfoot>*@
         </table>
     </div>
 </div>
@@ -74,12 +74,12 @@
                     </tr>
                 }
             </tbody>
-            <tfoot>
+            @*<tfoot>
                 <tr>
                     <th>Label</th>
                     <th>Passed?</th>
                 </tr>
-            </tfoot>
+            </tfoot>*@
         </table>
     </div>
 </div>
@@ -115,7 +115,7 @@
                     </tr>
                 }
             </tbody>
-            <tfoot>
+            @*<tfoot>
                 <tr>
                     <th>Label</th>
                     <th>Passed?</th>
@@ -124,7 +124,7 @@
                     <th>Threshold</th>
                     <th>Influence</th>
                 </tr>
-            </tfoot>
+            </tfoot>*@
         </table>
     </div>
 </div>
@@ -140,11 +140,11 @@
             // ids of data entry tables
             var tableElIds = ['zScoreCheckResultsTable', 'nonNullCheckResultsTable', 'reasCheckResultsTable'];
             for (var tableIter = 0; tableIter < tableElIds.length; tableIter++) {
-                // Setup - add a text input to each footer cell
-                $('#' + tableElIds[tableIter] + ' tfoot th').each(function () {
-                    //var title = $(this).text();
-                    $(this).html('<input type="text" placeholder="Search" />');
-                });
+                //// Setup - add a text input to each footer cell
+                //$('#' + tableElIds[tableIter] + ' tfoot th').each(function () {
+                //    //var title = $(this).text();
+                //    $(this).html('<input type="text" placeholder="Search" />');
+                //});
 
                 var table = $('#' + tableElIds[tableIter]).DataTable({
                     fixedColumns: true,
@@ -155,20 +155,20 @@
                     buttons: ['pageLength', 'copy', 'csv', 'excel', 'pdf', 'print']
                 });
 
-                var r = $("#" + tableElIds[tableIter] + ' tfoot tr')
-                r.find('th').each(function () {
-                    $(this).css('padding', '3px');
-                });
-                $("#" + tableElIds[tableIter] + ' thead').append(r);
+                //var r = $("#" + tableElIds[tableIter] + ' tfoot tr')
+                //r.find('th').each(function () {
+                //    $(this).css('padding', '3px');
+                //});
+                //$("#" + tableElIds[tableIter] + ' thead').append(r);
 
-                // Apply the filter
-                // https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/examples/api/multi_filter.html
-                $("#" + tableElIds[tableIter] + " thead input").on('keyup change', function () {
-                    table
-                        .column($(this).parent().index() + ':visible')
-                        .search(this.value)
-                        .draw();
-                });
+                //// Apply the filter
+                //// https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/examples/api/multi_filter.html
+                //$("#" + tableElIds[tableIter] + " thead input").on('keyup change', function () {
+                //    table
+                //        .column($(this).parent().index() + ':visible')
+                //        .search(this.value)
+                //        .draw();
+                //});
             }
         });
     </script>

@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NonNullCheck.MeasurementId" class="control-label"></label>
-                <select asp-for="NonNullCheck.MeasurementId" class="form-control" asp-items="ViewBag.MeasurementId"></select>
+                <select asp-for="NonNullCheck.MeasurementId" class="form-control chosen-select" asp-items="ViewBag.MeasurementId"></select>
                 <span asp-validation-for="NonNullCheck.MeasurementId" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="NonNullCheck.Id" />
