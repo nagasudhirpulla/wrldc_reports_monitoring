@@ -40,7 +40,7 @@ namespace WRM.Web.Pages.ZscoreChecks
             ViewData["MeasurementId"] = new SelectList(_context.PspMeasurements, "Id", "Label");
             EndDate = DateTime.Now.AddDays(-1);
             StartDate = DateTime.Now.AddMonths(-6);
-            NumDays = 15;
+            NumDays = 10;
             ZscoresData = new ZscoresDTO();
         }
 

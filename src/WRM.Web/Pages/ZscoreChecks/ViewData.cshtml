@@ -7,7 +7,7 @@
 <h1>Zscores and actual data visualization</h1>
 
 <form method="post">
-    <select asp-for="MeasurementId" class="mr-3" asp-items="ViewBag.MeasurementId"></select>
+    <select asp-for="MeasurementId" class="chosen-select mr-3" asp-items="ViewBag.MeasurementId" style="width:16em"></select>
     <input asp-for="StartDate" type="date" class="mr-3" />
     <input asp-for="EndDate" type="date" class="mr-3" />
     <input asp-for="NumDays" class="mr-3" placeholder="lag days for zscore calculation" />
@@ -16,11 +16,18 @@
 <hr />
 <div id='plotDiv'></div>
 
-@if (Model.ZscoresData.Timestamps.Count > 0)
-{
+@section Scripts{
+    <link rel="stylesheet" href="~/lib/node_modules/chosen-js/chosen.min.css" />
+    <script src='~/lib/node_modules/chosen-js/chosen.jquery.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".chosen-select").chosen();
+        });
+    </script>
 
-    @section Scripts{
-        <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    @if (Model.ZscoresData.Timestamps.Count > 0)
+    {
+        <script src='~/lib/node_modules/plotly.js-cartesian-dist/plotly-cartesian.js'></script>
         <script type="text/javascript">
             var trace1 = {
                 name:'data',
@@ -31,15 +38,16 @@
 
             var trace2 = {
                 name:'zscore',
+                yaxis: 'y2',
                 x: [@string.Join(",", Model.ZscoresData.Timestamps.Select(t=>$"new Date({t.Subtract(new DateTime(1970,1,1,0,0,0,DateTimeKind.Utc)).TotalMilliseconds})"))],
                 y: [@string.Join(",", Model.ZscoresData.zScores.Select(t=>$"{t}"))],
-                yaxis: 'y2',
                 type: 'scatter'
             };
 
             var data = [trace1, trace2];
 
             var layout = {
+              legend: {"orientation": "h"},
               yaxis: {title: 'Data'},
               yaxis2: {
                 title: 'Z-score',
@@ -51,3 +59,5 @@
         </script>
     }
 }
+
+

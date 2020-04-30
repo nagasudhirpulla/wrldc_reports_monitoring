@@ -6,14 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\lib\node_modules\chosen-js\chosen.min.css" />
     <Content Include="wwwroot\lib\node_modules\datatables\media\css\jquery.dataTables.min.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\node_modules\chosen-js\chosen.jquery.min.js" />
     <None Include="wwwroot\lib\node_modules\datatables.net-buttons\js\buttons.html5.min.js" />
     <None Include="wwwroot\lib\node_modules\datatables.net-buttons\js\buttons.print.min.js" />
     <None Include="wwwroot\lib\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" />
     <None Include="wwwroot\lib\node_modules\datatables\media\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\lib\node_modules\plotly.js-cartesian-dist\plotly-cartesian.js" />
   </ItemGroup>
 
 
