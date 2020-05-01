@@ -1,7 +1,27 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using WRM.Domain.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="text-center">
+        <h2>Welcome to WRLDC Reports Monitoring Application</h2>
+        <div>
+            <h2><a class="nav-link" asp-page="/ZscoreChecks/ViewData">View Data</a></h2>
+            <h2><a class="nav-link" asp-page="/PerformChecks/Index">Perform Checks</a></h2>
+            <h2><a class="nav-link" asp-page="/CheckResults/Index">Checks Results</a></h2>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h2>Welcome to WRLDC Reports Monitoring Application</h2>
+        <h2><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login Here</a></h2>
+    </div>
+}

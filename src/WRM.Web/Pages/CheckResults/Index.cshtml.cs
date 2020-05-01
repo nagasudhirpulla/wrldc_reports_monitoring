@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WRM.App.CheckResults.Queries.GetAllCheckResultsForDate;
 
 namespace WRM.Web
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         [BindProperty]
