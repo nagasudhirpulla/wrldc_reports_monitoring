@@ -32,7 +32,7 @@ namespace WRM.Web.Pages.PerformChecks
             _ = await _mediator.Send(new PerformAllReasonabilityChecksCommand() { CheckDate = DateOfCheck.Date });
             _ = await _mediator.Send(new PerformAllNonNullChecksCommand() { CheckDate = DateOfCheck.Date });
             _ = await _mediator.Send(new PerformAllZscoreChecksCommand() { CheckDate = DateOfCheck.Date });
-            return RedirectToPage();
+            return RedirectToPage("/CheckResults/Index");
         }
     }
 }

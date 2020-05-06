@@ -41,7 +41,7 @@ namespace WRM.App.ZscoreChecks.Commands.PerformAllZscoreChecks
                 
                 int numDays = check.NumDays;
                 // get data of measurement
-                List<(DateTime, double)> measData = await _reportsFetchService.FetchTimeseriesData(check.Measurement.QueryString, check.Measurement.DateType, request.CheckDate, request.CheckDate.AddDays(-1 * numDays));
+                List<(DateTime, double)> measData = await _reportsFetchService.FetchTimeseriesData(check.Measurement.QueryString, check.Measurement.DateType, request.CheckDate.AddDays(-1 * numDays), request.CheckDate);
 
                 if (measData.Count == 0)
                 {
